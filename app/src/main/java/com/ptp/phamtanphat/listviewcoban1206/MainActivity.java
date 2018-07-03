@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     ListView lv;
     ArrayList<String> mangten;
     ArrayAdapter arrayAdapter;
+    int index = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +38,17 @@ public class MainActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, mangten.get(position), Toast.LENGTH_SHORT).show();
+               mangten.set(position,"Cong viec " + index++);
+               arrayAdapter.notifyDataSetChanged();
             }
         });
-
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                mangten.remove(position);
+                arrayAdapter.notifyDataSetChanged();
+                return false;
+            }
+        });
     }
 }
